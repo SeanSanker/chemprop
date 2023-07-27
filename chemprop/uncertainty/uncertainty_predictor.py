@@ -118,7 +118,7 @@ class NoUncertaintyPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="NoUncertaintyPredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -249,7 +249,7 @@ class RoundRobinSpectraPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="RoundRobinSpectraPredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -326,7 +326,7 @@ class MVEPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="MVEPredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -471,7 +471,7 @@ class EvidentialTotalPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="EvidentialTotalPredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -617,7 +617,7 @@ class EvidentialAleatoricPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="EvidentialAleatoricPredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -763,7 +763,7 @@ class EvidentialEpistemicPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="EvidentialEpistemicPredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -905,7 +905,7 @@ class EnsemblePredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="EnsemblePredictor, calculate_predictions")
         ):
             (
                 scaler,
@@ -1152,7 +1152,7 @@ class ClassPredictor(UncertaintyPredictor):
 
     def calculate_predictions(self):
         for i, (model, scaler_list) in enumerate(
-            tqdm(zip(self.models, self.scalers), total=self.num_models)
+            tqdm(zip(self.models, self.scalers), total=self.num_models, desc="ClassPredictor, calculate_predictions")
         ):
             (
                 scaler,

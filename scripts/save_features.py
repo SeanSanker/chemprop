@@ -92,7 +92,7 @@ def generate_and_save_features(args: Args):
 
     # Get features
     temp_features = []
-    for i, feats in tqdm(enumerate(features_map), total=len(smiles)):
+    for i, feats in tqdm(enumerate(features_map), total=len(smiles), desc='generate_and_save_features, Computing features'):
         temp_features.append(feats)
 
         # Save temporary features every save_frequency

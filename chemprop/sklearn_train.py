@@ -307,7 +307,7 @@ def run_sklearn(args: SklearnTrainArgs,
     debug('Computing morgan fingerprints')
     morgan_fingerprint = get_features_generator('morgan')
     for dataset in [train_data, test_data]:
-        for datapoint in tqdm(dataset, total=len(dataset)):
+        for datapoint in tqdm(dataset, total=len(dataset), desc='run_sklearn, Computing morgan fingerprints'):
             for s in datapoint.smiles:
                 datapoint.extend_features(morgan_fingerprint(mol=s, radius=args.radius, num_bits=args.num_bits))
 

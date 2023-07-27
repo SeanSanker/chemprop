@@ -77,13 +77,13 @@ def find_similar_mols(test_smiles: List[str],
         train_vecs = np.array(model_fingerprint(model=model, data_loader=train_data_loader, fingerprint_type='last_FFN'))
         metric = 'cosine'
     elif distance_measure == 'morgan':
-        test_vecs = np.array([morgan_binary_features_generator(smiles) for smiles in tqdm(test_smiles, total=len(test_smiles))])
-        train_vecs = np.array([morgan_binary_features_generator(smiles) for smiles in tqdm(train_smiles, total=len(train_smiles))])
+        test_vecs = np.array([morgan_binary_features_generator(smiles) for smiles in tqdm(test_smiles, total=len(test_smiles), desc="find_similar_mols, Computing test vectors")])
+        train_vecs = np.array([morgan_binary_features_generator(smiles) for smiles in tqdm(train_smiles, total=len(train_smiles), desc="find_similar_mols, Computing train vectors")])
         metric = 'jaccard'
     elif distance_measure == 'tanimoto':
         # Generate RDKit topological fingerprints
-        test_fps = [Chem.RDKFingerprint(m.mol[0]) for m in tqdm(test_data)]
-        train_fps = [Chem.RDKFingerprint(m.mol[0]) for m in tqdm(train_data)]
+        test_fps = [Chem.RDKFingerprint(m.mol[0]) for m in tqdm(test_data, desc="find_similar_mols, Computing test fingerprints")]
+        train_fps = [Chem.RDKFingerprint(m.mol[0]) for m in tqdm(train_data, desc="find_similar_mols, Computing train fingerprints")]
 
         # Compute pairwise similarity
         print('Computing distances')

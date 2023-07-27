@@ -642,7 +642,7 @@ def save_smiles_splits(
         reader = csv.DictReader(f)
 
         indices_by_smiles = {}
-        for i, row in enumerate(tqdm(reader)):
+        for i, row in enumerate(tqdm(reader, desc="save_smiles_splits, reading data")):
             smiles = tuple([row[column] for column in smiles_columns])
             if smiles in indices_by_smiles:
                 save_split_indices = False

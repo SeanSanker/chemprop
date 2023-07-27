@@ -280,7 +280,7 @@ def filter_invalid_smiles(data: MoleculeDataset) -> MoleculeDataset:
     :param data: A :class:`~chemprop.data.MoleculeDataset`.
     :return: A :class:`~chemprop.data.MoleculeDataset` with only the valid molecules.
     """
-    return MoleculeDataset([datapoint for datapoint in tqdm(data)
+    return MoleculeDataset([datapoint for datapoint in tqdm(data, desc='Filtering invalid SMILES')
                             if all(s != '' for s in datapoint.smiles) and all(m is not None for m in datapoint.mol)
                             and all(m.GetNumHeavyAtoms() > 0 for m in datapoint.mol if not isinstance(m, tuple))
                             and all(m[0].GetNumHeavyAtoms() + m[1].GetNumHeavyAtoms() > 0 for m in datapoint.mol if isinstance(m, tuple))])
@@ -473,7 +473,7 @@ def get_data(path: str,
             raise ValueError(f'Data file did not contain all provided target columns: {target_columns}. Data file field names are: {fieldnames}')
 
         all_smiles, all_targets, all_atom_targets, all_bond_targets, all_rows, all_features, all_phase_features, all_constraints_data, all_raw_constraints_data, all_weights, all_gt, all_lt = [], [], [], [], [], [], [], [], [], [], [], []
-        for i, row in enumerate(tqdm(reader)):
+        for i, row in enumerate(tqdm(reader, desc="get_data, reading data")):
             smiles = [row[c] for c in smiles_columns]
 
             targets, atom_targets, bond_targets = [], [], []
@@ -591,7 +591,8 @@ def get_data(path: str,
                 overwrite_default_atom_features=args.overwrite_default_atom_features if args is not None else False,
                 overwrite_default_bond_features=args.overwrite_default_bond_features if args is not None else False
             ) for i, (smiles, targets) in tqdm(enumerate(zip(all_smiles, all_targets)),
-                                            total=len(all_smiles))
+                                            total=len(all_smiles),
+                                            desc='get_data, Processing data')
         ])
 
     # Filter out invalid SMILES
@@ -919,7 +920,7 @@ def validate_data(data_path: str) -> Set[str]:
         errors.add('First row is a SMILES string instead of a header.')
 
     # Validate smiles
-    for smile in tqdm(smiles, total=len(smiles)):
+    for smile in tqdm(smiles, total=len(smiles), desc="validate_data, validating smiles"):
         mol = Chem.MolFromSmiles(smile)
         if mol is None:
             errors.add('Data includes an invalid SMILES.')

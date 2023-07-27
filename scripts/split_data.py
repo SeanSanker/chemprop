@@ -40,7 +40,7 @@ def run_split_data(args: Args):
 
     # Create data
     data = []
-    for smile, line in tqdm(zip(smiles, lines), total=len(smiles)):
+    for smile, line in tqdm(zip(smiles, lines), total=len(smiles), desc='run_split_data, creating data'):
         datapoint = MoleculeDatapoint(smiles=smile)
         datapoint.line = line
         data.append(datapoint)

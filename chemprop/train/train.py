@@ -50,7 +50,7 @@ def train(
     else:
         loss_sum = iter_count = 0
 
-    for batch in tqdm(data_loader, total=len(data_loader), leave=False):
+    for batch in tqdm(data_loader, total=len(data_loader), leave=False, desc="Training"):
         # Prepare batch
         batch: MoleculeDataset
         mol_batch, features_batch, target_batch, mask_batch, atom_descriptors_batch, atom_features_batch, bond_descriptors_batch, bond_features_batch, constraints_batch, data_weights_batch = \

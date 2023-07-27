@@ -34,14 +34,14 @@ def predict_sklearn(args: SklearnPredictArgs) -> None:
 
     print('Computing morgan fingerprints')
     morgan_fingerprint = get_features_generator('morgan')
-    for datapoint in tqdm(data, total=len(data)):
+    for datapoint in tqdm(data, total=len(data), desc='predict_sklearn, Computing morgan fingerprints'):
         for s in datapoint.smiles:
             datapoint.extend_features(morgan_fingerprint(mol=s, radius=train_args.radius, num_bits=train_args.num_bits))
 
     print(f'Predicting with an ensemble of {len(args.checkpoint_paths)} models')
     sum_preds = np.zeros((len(data), train_args.num_tasks))
 
-    for checkpoint_path in tqdm(args.checkpoint_paths, total=len(args.checkpoint_paths)):
+    for checkpoint_path in tqdm(args.checkpoint_paths, total=len(args.checkpoint_paths), desc='predict_sklearn, Predicting with an ensemble of models'):
         with open(checkpoint_path, 'rb') as f:
             model = pickle.load(f)
 

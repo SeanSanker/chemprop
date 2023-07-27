@@ -105,7 +105,7 @@ def compute_values(dataset: str,
             dataset_type=DATASETS[dataset]['type'],
             logger=FAKE_LOGGER
         )
-        for pred, target in tqdm(zip(preds, targets), total=len(preds))
+        for pred, target in tqdm(zip(preds, targets), total=len(preds), desc='compute_values, evaluating predictions')
     ]
 
     values = [np.nanmean(value) for value in values]
